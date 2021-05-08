@@ -23,9 +23,11 @@ module.exports = {
 Here are some illustrations for the above two explanations:
 
 <sup>Command files' export code</sup>
+
 ![alt text](https://github.com/Jaston1026/Fake-Rhythm/blob/Development/md-resource/exportCode.png)
 
 <sup>Command files naming</sup>
+
 ![alt text](https://github.com/Jaston1026/Fake-Rhythm/blob/Development/md-resource/commandsDir.png)
 
 ---
