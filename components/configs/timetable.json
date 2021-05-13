@@ -1,0 +1,96 @@
+{
+  "table": [
+    {
+      "className": "S2SY",
+      "day": 1,
+      "hour": [
+        8,
+        8,
+        9,
+        9,
+        10,
+        10,
+        11,
+        12,
+        12,
+        13,
+        13,
+        14
+      ],
+      "minute": [
+        0,
+        35,
+        10,
+        40,
+        15,
+        50,
+        25,
+        0,
+        35,
+        5,
+        40,
+        15
+      ],
+      "classes": [
+        "computer",
+        "computer",
+        "recess",
+        "-",
+        "chemistry",
+        "chemistry",
+        "english",
+        "english",
+        "recess",
+        "-",
+        "admath",
+        "bm"
+      ]
+    },
+    {
+      "className": "S2SY",
+      "day": 2,
+      "hour": [
+        8,
+        8,
+        9,
+        9,
+        10,
+        10,
+        11,
+        12,
+        12,
+        13,
+        13,
+        14
+      ],
+      "minute": [
+        0,
+        35,
+        10,
+        40,
+        15,
+        50,
+        25,
+        0,
+        35,
+        5,
+        40,
+        15
+      ],
+      "classes": [
+        "assembly",
+        "assembly",
+        "recess",
+        "pe",
+        "pe",
+        "chinese",
+        "physics",
+        "malay",
+        "recess",
+        "biology",
+        "biology",
+        "dizigui"
+      ]
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 const fetch = require("node-fetch")
+const config = require("./configs/config.json")
 
 module.exports = {
 	key: "gif",
@@ -9,7 +10,7 @@ module.exports = {
 		}
 
 		console.log(`Someone searched for ${gif_keyword} gifs`)
-		const gif_url = `https://api.tenor.com/v1/search?q=${gif_keyword}&key=${process.env.TENOR_KEY}&contentfilter=high`
+		const gif_url = `https://api.tenor.com/v1/search?q=${gif_keyword}&key=${config.TENOR_KEY}&contentfilter=high`
 
 		const response = await fetch(gif_url)
 		const json =  await response.json() //Big Data Sheet

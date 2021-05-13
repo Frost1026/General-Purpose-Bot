@@ -1,14 +1,20 @@
+//Set default timezone for node process
+process.env.TZ = 'Asia/Kuala_Lumpur'
+
 //Web Portion
-const express = require('express');
-const app = express();
-const port = 8000;
+const express = require('express')
+require('console-stamp')(console, { 
+    format: ':date(yyyy/mm/dd HH:MM:ss.l)',
+})
+const app = express()
+const port = 3000
 
-app.get('/', (req, res) => res.send("I'm not dead! :D"));
+app.get('/', (req, res) => res.send("I'm not dead! :D"))
 
-app.listen(port, () => console.log(`listening at http://localhost:${port}`));
+app.listen(port, () => console.log(`listening at http://localhost:${port}`))
 
 //Discord Bot Portion
-const config = require("./config.json")
+const config = require("./components/configs/config.json")
 
 const discord = require("discord.js")
 const fs = require("fs")
@@ -17,12 +23,11 @@ const client = new discord.Client()
 
 const prefix = config.PREFIX
 const commands = new Map()
-const queue = new Map()
 
-const jsFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
+const jsFiles = fs.readdirSync('./components').filter(file => file.endsWith('.js'))
 
 jsFiles.forEach(commandFile => {
-	const command = require(`./commands/${commandFile}`)
+	const command = require(`./components/${commandFile}`)
 	if(command.key && command.func) {
 		commands.set(command.key, command.func)
 	}
@@ -37,17 +42,23 @@ client.on("message", async message => {
   try{
     if(!message.content.startsWith(prefix)) return
 
-    const serverQueue = queue.get(message.guild.id);
-
     const preSlicedCommand = message.content.slice(prefix.length)
     const args = preSlicedCommand.split(" ")
     const command = args.shift().toLowerCase()
 
-		if(commands.get(command) === undefined || message.author.bot) {
-			return
-		}
+		console.log(`${message.author.username} ran the ${command} command`)
 
-		commands.get(command)(message, args)
+		if(commands.get(command) === undefined) {
+			message.channel.send(`${command} command is not found`)
+		} else if(message.author.bot) {
+			return
+		} else {
+			if(!config.MAINTENANCE_MODE) {
+				commands.get(command)(message, args)
+			} else {
+				message.channel.send(`${message.author} I am **under maintenance** only bot admins can use commands`)
+			}
+		}
   } catch(err) {
     console.log(err)
   }  
