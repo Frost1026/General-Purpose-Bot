@@ -17,7 +17,7 @@ module.exports = {
 		switch(args[0]) {
 			case "set":
 				if(args.length > 4) {
-					if(validURL) {
+					if(validURL(args.slice(-1))) {
 						
 					} else {
 						message.channel.send("Link is invalid, please send again.")

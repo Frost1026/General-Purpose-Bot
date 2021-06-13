@@ -82,7 +82,7 @@ module.exports = {
 						})
 
 						container.className = args[1]
-						container.day = day.indexOf(args[2])
+						container.day = day.indexOf(args[2].toLowerCase())
 						container.hour = hour
 						container.minute = minute
 						container.classes = classes
@@ -150,7 +150,7 @@ module.exports = {
 							classTimetable.push(value.className)
 							classTimetable.push(day[value.day])
 
-							argsTimetable.push(args[1].toUpperCase())
+							argsTimetable.push(args[1].toLowerCase())
 							argsTimetable.push(args[2].toLowerCase())
 
 							if(JSON.stringify(classTimetable) === JSON.stringify(argsTimetable)) {
