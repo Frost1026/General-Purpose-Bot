@@ -1,6 +1,7 @@
 {
   "table": [
     {
+      "channelID": "821708782219558912",
       "className": "f4m",
       "day": 1,
       "hour": [
@@ -47,6 +48,7 @@
       ]
     },
     {
+      "channelID": "821708782219558912",
       "className": "f4m",
       "day": 2,
       "hour": [
@@ -93,6 +95,7 @@
       ]
     },
     {
+      "channelID": "821708782219558912",
       "className": "f4m",
       "day": 3,
       "hour": [
@@ -139,6 +142,7 @@
       ]
     },
     {
+      "channelID": "821708782219558912",
       "className": "f4m",
       "day": 4,
       "hour": [
@@ -185,6 +189,7 @@
       ]
     },
     {
+      "channelID": "821708782219558912",
       "className": "f4m",
       "day": 5,
       "hour": [
@@ -228,242 +233,6 @@
         "computer",
         "computer",
         "physics"
-      ]
-    },
-    {
-      "className": "S2CT",
-      "day": -1,
-      "hour": [
-        8,
-        8,
-        9,
-        9,
-        10,
-        10,
-        11,
-        12,
-        12,
-        13,
-        13,
-        14,
-        14,
-        15
-      ],
-      "minute": [
-        0,
-        35,
-        10,
-        40,
-        15,
-        50,
-        25,
-        0,
-        35,
-        5,
-        40,
-        15,
-        50,
-        25
-      ],
-      "classes": [
-        "Computer",
-        "Computer",
-        "Recess",
-        "BusinessStudies",
-        "Commerce",
-        "-",
-        "English",
-        "English",
-        "Recess",
-        "-",
-        "Accounting",
-        "Accounting",
-        "Art",
-        "Art"
-      ]
-    },
-    {
-      "className": "S2CT",
-      "day": 2,
-      "hour": [
-        8,
-        8,
-        9,
-        9,
-        10,
-        10,
-        11,
-        12,
-        12,
-        13,
-        13,
-        14
-      ],
-      "minute": [
-        0,
-        35,
-        10,
-        40,
-        15,
-        50,
-        25,
-        0,
-        35,
-        5,
-        40,
-        15
-      ],
-      "classes": [
-        "Assembly",
-        "Assembly",
-        "Recess",
-        "Malay",
-        "Malay",
-        "-",
-        "Commerce",
-        "-",
-        "Recess",
-        "Csl/Cls",
-        "BusinessStudies",
-        "Mathematics"
-      ]
-    },
-    {
-      "className": "S2CT",
-      "day": 3,
-      "hour": [
-        8,
-        8,
-        9,
-        9,
-        10,
-        10,
-        11,
-        12,
-        12,
-        13,
-        13,
-        14
-      ],
-      "minute": [
-        0,
-        35,
-        10,
-        40,
-        15,
-        50,
-        25,
-        0,
-        35,
-        5,
-        40,
-        15
-      ],
-      "classes": [
-        "Mathematics",
-        "Mathematics",
-        "Recess",
-        "English",
-        "English",
-        "-",
-        "-",
-        "-",
-        "Recess",
-        "Economics",
-        "Chinese",
-        "Chinese"
-      ]
-    },
-    {
-      "className": "S2CT",
-      "day": 4,
-      "hour": [
-        8,
-        8,
-        9,
-        9,
-        10,
-        10,
-        11,
-        12,
-        12,
-        13,
-        13,
-        14
-      ],
-      "minute": [
-        0,
-        35,
-        10,
-        40,
-        15,
-        50,
-        25,
-        0,
-        35,
-        5,
-        40,
-        15
-      ],
-      "classes": [
-        "Chinese",
-        "Chinese",
-        "Recess",
-        "EnglishSNL",
-        "EnglishSNL",
-        "-",
-        "-",
-        "Economics",
-        "Recess",
-        "Dizigui",
-        "-",
-        "Malay"
-      ]
-    },
-    {
-      "className": "S2CT",
-      "day": 5,
-      "hour": [
-        8,
-        8,
-        9,
-        9,
-        10,
-        10,
-        11,
-        12,
-        12,
-        13,
-        13,
-        14
-      ],
-      "minute": [
-        0,
-        35,
-        10,
-        40,
-        15,
-        50,
-        25,
-        0,
-        35,
-        5,
-        40,
-        15
-      ],
-      "classes": [
-        "Sports",
-        "Sports",
-        "Recess",
-        "Mathematics",
-        "Mathematics",
-        "Chinese",
-        "-",
-        "-",
-        "Recess",
-        "Accounting",
-        "Accounting",
-        "Malay"
       ]
     }
   ]

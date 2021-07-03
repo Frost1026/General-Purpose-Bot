@@ -2,6 +2,7 @@ const schedule = require("node-schedule")
 const fs = require("fs")
 const discord = require("discord.js")
 const timetable_file = "./components/configs/timetable.json"
+const links_file = "./components/configs/links.json"
 
 let jobs = []
 
@@ -15,27 +16,72 @@ const template = {
 // JSON Buffer
 var timetable = {}
 
+var links = {}
+
 // Functions to get declared, write here
-const refreshJSONBuffer = (filepath) => {
+const refreshJSONBuffer = (filepath, obj) => {
 	try {
 		const data = fs.readFileSync(filepath)
-		const object = JSON.parse(data)
+		const temp = JSON.parse(data)
+		const keys = Object.keys(temp)
 
-		timetable = object
-	} catch(err) {
+		keys.some((value) => {
+			obj[value] = temp[value]
+		})
+	} catch {
 		console.log(`Can't read ${filepath}`)
 		console.log(`Writing template to ${filepath}`)
 		fs.writeFileSync(filepath, JSON.stringify(template, null, 2))
-		refreshJSONBuffer(filepath)
+		refreshJSONBuffer(filepath, obj)
 	}
 
-	Object.freeze(timetable)
+	Object.freeze(obj)
+}
+
+const setJob = (className, classToHave, channelID, rule, client) => {
+	refreshJSONBuffer(links_file, links)
+
+	let link
+	let message = {}
+
+	links.table.some((value, index) => {
+		if(value.target.toLowerCase() === className.toLowerCase()) {
+			if(value.object.toLowerCase() === classToHave.toLowerCase()) {
+				link = value.link
+				return true
+			}
+		}
+	})
+
+	const job = schedule.scheduleJob(rule, () => {
+		message.channel = client.channels.cache.get(channelID)
+		
+		switch(classToHave.toLowerCase()) {
+			case "recess":
+				message.channel.send(`${className.toUpperCase()} is now on **recess**`)
+				break;
+
+			case "-":
+				message.channel.send(`Now ${className.toUpperCase()} have **no class**.`)
+				break;
+
+			default:
+				if(link) {
+					message.channel.send(`${className.toUpperCase()} is now having **${classToHave.toUpperCase()}**. Link: <${link}>`)
+				} else {
+					message.channel.send(`${className.toUpperCase()} is now having **${classToHave.toUpperCase()}**. Link: No Link`)
+				}
+				break;
+		}
+	})
+
+	return job
 }
 
 module.exports = {
 	key: "ttb",
-	func: async (message, args) => {
-		refreshJSONBuffer(timetable_file)
+	func: async (message, args, client, commands) => {
+		refreshJSONBuffer(timetable_file, timetable)
 		switch(args[0]) {
 			case "set":
 				if(args.length > 3 && day.includes(args[2].toLowerCase())) {
@@ -81,6 +127,7 @@ module.exports = {
 							}
 						})
 
+						container.channelID = message.channel.id
 						container.className = args[1]
 						container.day = day.indexOf(args[2].toLowerCase())
 						container.hour = hour
@@ -91,7 +138,7 @@ module.exports = {
 
 						fs.writeFileSync(timetable_file, JSON.stringify(timetable, null, 2))
 
-						refreshJSONBuffer(timetable_file)
+						refreshJSONBuffer(timetable_file, timetable)
 
 						if(timetable.table.length > timetableOld.table.length) {
 							message.channel.send(`Succesfully set timetable alert for class **${container.className.toUpperCase()}** on **${day[container.day][0].toUpperCase().concat(day[container.day].slice(1))}**.`)
@@ -105,37 +152,54 @@ module.exports = {
 				break;
 
 			case "on":
+				let notClassFound = false
+			 
 				jobs = []
-				refreshJSONBuffer(timetable_file)
+				refreshJSONBuffer(timetable_file, timetable)
 				timetable.table.forEach((object, classIndex) => {
 					object.classes.forEach((value, index) => {
+						const className = timetable.table[classIndex].className
+						const channelID = message.channel.id
+
 						const rule = new schedule.RecurrenceRule()
 						rule.dayOfWeek = object.day
 						rule.hour = object.hour[index]
 						rule.minute = object.minute[index]
 
-						const job = schedule.scheduleJob(rule, () => {
-							const className = timetable.table[classIndex].className
-							const classToHave = value
-							let link = "No Link"
-							switch(classToHave.toLowerCase()) {
-								case "recess":
-									message.channel.send(`${className.toUpperCase()} is now on **recess**`)
-									break;
+						if(args[1]) {
+							if(args[1].toLowerCase() === className.toLowerCase()) {
+								jobs.push(setJob(className, value, channelID, rule, client))
+							} else if(classIndex === (timetable.table.length - 1) && message.author){
+								if(!notClassFound) {
+									message.channel.send(`**No** timetable of class **${args[1].toUpperCase()}** found.`)
 
-								case "-":
-									message.channel.send(`Now ${className.toUpperCase()} have **no class**.`)
-									break;
-
-								default:
-									message.channel.send(`${className.toUpperCase()} is now having **${classToHave.toUpperCase()}**. Link: ${link}`)
-									break;
+									notClassFound = true
+								}
 							}
-						})
-
-						jobs.push(job)
+						} else {
+							jobs.push(setJob(className, value, channelID, rule, client))
+						}
 					})
 				})
+
+				if(jobs.length && message.author) {
+					if(args[1]) {
+						message.channel.send(`**Successfully** started timetable reminder for **${args[1].toUpperCase()}**.`)
+					} else {
+						message.channel.send(`**Successfully** started timetable reminder for **all saved timetables**.`)
+					}
+				}
+				break;
+
+			case "off":
+				if(jobs.length > 0) {
+					jobs.forEach((value) => {
+						value.cancel()
+					})
+					message.channel.send("All on going timetables are canceled")
+				} else {
+					message.channel.send("No on going timetables to cancel, use <**ttb on**> to start one or <**ttb set**> to create one")
+				}
 				break;
 
 			case "delete":
@@ -158,7 +222,7 @@ module.exports = {
 
 								timetable.table.splice(index, 1)
 								fs.writeFileSync(timetable_file, JSON.stringify(timetable, null, 2))
-								refreshJSONBuffer(timetable_file)
+								refreshJSONBuffer(timetable_file, timetable)
 
 								if(timetable.table.length < timetableOld.table.length) {
 									message.channel.send(`Succesfully deleted **${args.slice(2).join(" ").toUpperCase()}** from **${args[1].toUpperCase()}'s** timetable.`)
@@ -178,7 +242,7 @@ module.exports = {
 				break;
 
 			case "clear":
-				if(timetable.table.length > 0) {
+				if(timetable.table.length > 0 && message.author.username) {
 					let deletion
 
 					const	confirmWords = ["delete all timetable", "all timetable delete", "all timetable deletion", "confirm delete all timetable"]
@@ -228,12 +292,12 @@ module.exports = {
 
 									form.edit(confirmationEmbed)
 
-									message.channel.awaitMessages(captchaFilter, {max: 1, time: 10000, errors: ["time"]}).then(() => {
+									message.channel.awaitMessages(captchaFilter, {max: 1, time: 15000, errors: ["time"]}).then(() => {
 										const timetableOld = JSON.parse(JSON.stringify(timetable, null, 2))
 
 										form.delete()
 										fs.writeFileSync(timetable_file, JSON.stringify(template, null, 2))
-										refreshJSONBuffer(timetable_file)
+										refreshJSONBuffer(timetable_file, timetable)
 
 										if(timetable.table.length < timetableOld.table.length) {
 											message.channel.send("**Succesfully** cleared all timetables.")
@@ -256,15 +320,8 @@ module.exports = {
 				}
 				break;
 
-			case "off":
-				if(jobs.length > 0) {
-					jobs.forEach((value) => {
-						value.cancel()
-					})
-					message.channel.send("All on going timetables are canceled")
-				} else {
-					message.channel.send("No on going timetables to cancel, use <**ttb on**> to start one or <**ttb set**> to create one")
-				}
+			case "list":
+				
 				break;
 
 			case "settings":
@@ -272,7 +329,7 @@ module.exports = {
 				break;
 
 			default:
-				message.channel.send("No arguments were given, available arguments are: <set>, <delete>, <list>, <on>, <off>")
+				message.channel.send("No arguments were given, available arguments are: <set>, <delete>, <on>, <off>")
 				console.log("No arguments error")
 				break;
 		}

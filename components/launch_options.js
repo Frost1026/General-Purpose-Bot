@@ -89,7 +89,8 @@ module.exports = {
 
 						payloadBuffer[page - 1].forEach((value, index) => {
 							const channelName = client.channels.cache.get(options.table[payload.indexOf(value)][1].channelID).name
-							payloadEmbed.addField(value, `To be run on startup from ${channelName}`)
+							const serverName = client.channels.cache.get(options.table[payload.indexOf(value)][1].channelID).guild.name
+							payloadEmbed.addField(value, `To be run on startup from **${channelName}** of server: **${serverName}**`)
 						})
 
 						payloadEmbed
@@ -256,7 +257,7 @@ module.exports = {
 				break;
 
 			case "clear":
-				if(options.table.length > 0) {
+				if(options.table.length > 0 && message.author.username) {
 					let deletion
 
 					const	confirmWords = ["delete launch options", "launch options delete", "launch options deletion", "confirm delete"]
