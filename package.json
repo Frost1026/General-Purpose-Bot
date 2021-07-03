@@ -14,6 +14,7 @@
     "color-string": "^1.5.4",
     "colors": "^1.4.0",
     "colorspace": "^1.1.2",
+    "console-stamp": "^3.0.2",
     "core-util-is": "^1.0.2",
     "discord.io": "^2.5.3",
     "discord.js": "^12.5.3",
@@ -30,9 +31,11 @@
     "is-stream": "^2.0.0",
     "isarray": "^1.0.0",
     "kuler": "^2.0.0",
+    "log-timestamp": "^0.3.0",
     "logform": "^2.2.0",
     "ms": "^2.1.2",
     "node-fetch": "^2.6.1",
+    "node-schedule": "^2.0.0",
     "one-time": "^1.0.0",
     "options": "^0.0.6",
     "process-nextick-args": "^2.0.1",
@@ -52,8 +55,13 @@
     "ytdl-core": "^4.7.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon --watch /home/runner/Fake-Rhythm index.js"
   },
   "author": "YiZhong",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
