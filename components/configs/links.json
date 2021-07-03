@@ -1,0 +1,49 @@
+{
+  "table": [
+    {
+      "target": "f4m",
+      "object": "chinese",
+      "link": "https://zoom.us/j/6977619354?pwd=Rm1PRDdHZXFObFgzRE51RERXVmdqQT09"
+    },
+    {
+      "target": "f4m",
+      "object": "malay",
+      "link": "https://us04web.zoom.us/j/5754460408?pwd=OGFWbGhsNnFYbmJjSVMwT045U2tydz09"
+    },
+    {
+      "target": "f4m",
+      "object": "english",
+      "link": "https://zoom.us/j/4781081195?pwd=YUhlRmhPR25Od1AzbHhQRi9aMzIyUT09"
+    },
+    {
+      "target": "f4m",
+      "object": "biology",
+      "link": "https://us04web.zoom.us/j/9526423921?pwd=RDdTdkdBekpCK2d6OU1Bang3L0krZz09"
+    },
+    {
+      "target": "f4m",
+      "object": "chemistry",
+      "link": "https://us04web.zoom.us/j/9280879384?pwd=emVCeGlnNjlFT2E3cVBqdVVaTTZWZz09"
+    },
+    {
+      "target": "f4m",
+      "object": "physics",
+      "link": "https://zoom.us/j/2693000987?pwd=MFpzbWNoQlRFZU9NNkhjZmlDZXFKQT09"
+    },
+    {
+      "target": "f4m",
+      "object": "computer",
+      "link": "https://meet.google.com/lookup/fvlirw3wmv"
+    },
+    {
+      "target": "f4m",
+      "object": "emath",
+      "link": "https://us04web.zoom.us/j/3356280221?pwd=L21BZitJUEJrc0N3MDlPZ21RdkowUT09"
+    },
+    {
+      "target": "f4m",
+      "object": "pe",
+      "link": "https://meet.google.com/lookup/hboxol6xcr?authuser=2&hs=179"
+    }
+  ]
+}
