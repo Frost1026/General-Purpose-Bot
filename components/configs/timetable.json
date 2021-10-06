@@ -234,6 +234,53 @@
         "computer",
         "physics"
       ]
+    },
+    {
+      "channelID": "860775673394888714",
+      "className": "s2sy",
+      "day": 1,
+      "hour": [
+        8,
+        8,
+        9,
+        9,
+        10,
+        10,
+        11,
+        12,
+        12,
+        13,
+        13,
+        14
+      ],
+      "minute": [
+        0,
+        35,
+        10,
+        40,
+        15,
+        50,
+        25,
+        0,
+        35,
+        5,
+        40,
+        15
+      ],
+      "classes": [
+        "computer",
+        "computer",
+        "recess",
+        "-",
+        "chemistry",
+        "chemistry",
+        "english",
+        "english",
+        "recess",
+        "-",
+        "admath",
+        "malay"
+      ]
     }
   ]
 }

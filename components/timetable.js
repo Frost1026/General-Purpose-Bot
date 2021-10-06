@@ -153,6 +153,10 @@ module.exports = {
 
 			case "on":
 				let notClassFound = false
+
+				jobs.forEach((value) => {
+					value.cancel()
+				})
 			 
 				jobs = []
 				refreshJSONBuffer(timetable_file, timetable)
